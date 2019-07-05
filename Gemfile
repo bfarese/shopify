@@ -10,6 +10,8 @@ gem 'sprockets-es6'
 gem 'foundation-rails'
 gem 'bootsnap', require: false
 gem 'webpacker'
+gem 'faraday'
+
 group :development do
   gem 'listen', '~> 3.0.5'
   gem 'spring'
@@ -25,6 +27,7 @@ group :development, :test do
   gem 'shoulda'
   gem 'valid_attribute'
   gem 'webdrivers', '~> 3.0'
+  gem 'dotenv-rails'
 end
 
 group :production do
