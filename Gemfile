@@ -28,6 +28,7 @@ group :development, :test do
   gem 'valid_attribute'
   gem 'webdrivers', '~> 3.0'
   gem 'dotenv-rails'
+  gem 'webmock', '~> 3.4', '>= 3.4.2'
 end
 
 group :production do
