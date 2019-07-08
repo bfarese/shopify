@@ -1,28 +1,40 @@
-class External::MarketingApi::Client
-  def initialize(args={})
-    @api_key = args.fetch(:api_key) { ENV['PUB_API_KEY'] }
-    @url     = args.fetch(:url) { "https://a.klaviyo.com/" }
-  end
+module External
+  module MarketingApi
+    class Client
+      def initialize(args={})
+        @api_key  = args.fetch(:api_key) { ENV['PUB_API_KEY'] }
+        @base_url = args.fetch(:base_url) { "https://a.klaviyo.com/" }
+      end
 
-  def track(event, customer_properties, properties)
-    params = {
-      token: @api_key,
-      event: event,
-      customer_properties: customer_properties,
-      properties: properties }
+      def track(event, customer_properties, properties)
+        params = {
+          token: api_key,
+          event: event,
+          customer_properties: customer_properties,
+          properties: properties }
 
-    params = build_params(params)
-    request('api/track', params)
-  end
+        params = build_params(params)
+        request('api/track', params)
+      end
 
-  private
+      private
 
-  def build_params(params)
-    "data=#{CGI.escape Base64.encode64(JSON.generate(params)).gsub(/\n/,'')}"
-  end
+      def api_key
+        @api_key
+      end
 
-  def request(path, params)
-    url = "#{@url}#{path}?#{params}"
-    open(url).read == '1'
+      def build_params(params)
+        "data=#{CGI.escape Base64.encode64(JSON.generate(params)).gsub(/\n/,'')}"
+      end
+
+      def request(path, params)
+        url = "#{base_url}#{path}?#{params}"
+        open(url).read == '1'
+      end
+
+      def base_url 
+        @base_url
+      end
+    end
   end
 end
