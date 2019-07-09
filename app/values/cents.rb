@@ -16,19 +16,23 @@ module Cents
     end
 
     def to_s
-      "#{'%.2f' % (value / 100.00)}"
+      "#{'%.2f' % (value_in_dollars)}"
     end
 
     def +(other)
-      Cent[@value + other.value]
+      Cent[value + other.value]
     end
 
     def <=>(other)
-      other.is_a?(Cent) && @value <=> other.value
+      other.is_a?(Cent) && value <=> other.value
     end
 
     def *(multiplicand)
-      Cent[multiplicand * @value]
+      Cent[multiplicand * value]
+    end
+
+    def value_in_dollars
+      value / 100.00
     end
 
     alias_method :to_i, :value
