@@ -1,3 +1,5 @@
+require 'faraday'
+
 module External
   module MarketingApi
     class Client
@@ -17,7 +19,7 @@ module External
         request('api/track', params)
       end
 
-      private
+      # private
 
       def api_key
         @api_key
@@ -29,10 +31,16 @@ module External
 
       def request(path, params)
         url = "#{base_url}#{path}?#{params}"
-        open(url).read == '1'
+        conn(url).get
       end
 
-      def base_url 
+      def conn(url, http_client: Faraday)
+        @conn ||= http_client.new(url: url) do |conn|
+          conn.adapter :net_http
+        end
+      end
+
+      def base_url
         @base_url
       end
     end

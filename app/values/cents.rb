@@ -16,7 +16,7 @@ module Cents
     end
 
     def to_s
-      "#{value / 100.00}"
+      "#{'%.2f' % (value / 100.00)}"
     end
 
     def +(other)

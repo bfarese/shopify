@@ -1,4 +1,6 @@
 class CustomerProperties
+  attr_reader :raw_customer
+  
   def self.call(raw_customer)
     new(raw_customer).call
   end

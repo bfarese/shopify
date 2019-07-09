@@ -1,7 +1,7 @@
 module External
   module MarketingApi
     class TrackOrder
-      attr_reader :raw_order, :request_client,
+      attr_reader :order, :request_client,
                   :order_properties, :customer_properties,
                   :product_properties_list
 
@@ -15,19 +15,24 @@ module External
 
       private
 
-      def initialize(raw_order, registry: External::MarketingApi::Registry)
-        @request_client           = registry.client
-        @order_properties         = registry.order(raw_order)
-        @customer_properties      = registry.customer(raw_order['customer'])
-        @product_properties_list  = registry.products(raw_order['line_items'])
+      def initialize(raw_order)
+        @order                    = raw_order
+        customer                  = raw_order['customer']
+        line_items                = raw_order['line_items']
+        order_id                  = raw_order['id']
+        @request_client           = Registry.client
+        @order_properties         = Registry.order(raw_order)
+        @customer_properties      = Registry.customer(customer)
+        @product_properties_list  = Registry.products(line_items, order_id)
       end
 
       def run
-        track_data if order_paid_for?
+        self
+        # track_data if order_paid_for?
       end
 
       def order_paid_for?
-        raw_order['financial_status'] == "paid"
+        order['financial_status'] == "paid"
       end
 
       def track_data
