@@ -1,4 +1,4 @@
-class EcommerceOrderSync
+class OrderSync
   def self.call
     new().call
   end
@@ -18,5 +18,5 @@ class EcommerceOrderSync
     orders.each do |order|
       MarketingApi::TrackOrder.call(order)
     end
-  end
+  end 
 end
