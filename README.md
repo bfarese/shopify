@@ -1,7 +1,7 @@
 # Overview
 
-The entire process is encapsulated in the EcommerceOrderSync Class located in
-'app/models/ecommerce_order_sync'.
+The entire process is encapsulated in the OrderSync Class located in
+'app/services/order_sync'.
 
 This class is leveraging 2 different classes:
 
@@ -12,7 +12,7 @@ This class is leveraging 2 different classes:
   default value.
   - Environment variables are used for the Shopify key, password, and store url.  The
   variables are hidden from Git through GitIgnore and using the dotenv gem.
-  
+
 ## [2] MarketingApi::TrackOrder
   - Located at 'app/services/marketing_api/track_order'
   - Responsible for configuring and executing the Track requests for:
@@ -23,7 +23,7 @@ This class is leveraging 2 different classes:
   to assist with dependency management. The various classes are scoped to the
   MarketingApi module and wrapped in the Registry class to make them "global" to the
   MarketingApi module. The wrapped classes include:
-    - [A] MarketingApi::Client - the HTTP client responsible for actually making the
+    - [A] MarketingApi::HttpClient - the HTTP client responsible for actually making the
     request to Track API endpoint.
     - [B] MarketingApi::Order - the class responsible for organizing the order properties
     - [C] MarketingApi::Customer - the class responsible for organizing the customer
@@ -58,4 +58,4 @@ This class is leveraging 2 different classes:
     problems in Ruby code.
 
 ## [2] Spec
-  - These are the automated tests for the project. 
+  - These are the automated tests for the project.

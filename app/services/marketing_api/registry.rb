@@ -1,7 +1,7 @@
 module MarketingApi
   class Registry
-    def self.client
-      Client.new
+    def self.http_client
+      HttpClient
     end
 
     def self.order(raw_order)
